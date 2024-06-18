@@ -1,0 +1,3 @@
+C:/Users/SavvinPC/Documents/coding/лабы - МИФИ/lab_04/cmake-build-debug/CMakeFiles/lab_04.dir
+C:/Users/SavvinPC/Documents/coding/лабы - МИФИ/lab_04/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/SavvinPC/Documents/coding/лабы - МИФИ/lab_04/cmake-build-debug/CMakeFiles/rebuild_cache.dir
