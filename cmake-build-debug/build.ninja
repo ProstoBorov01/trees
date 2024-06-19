@@ -51,13 +51,13 @@ build cmake_object_order_depends_target_lab_04: phony || CMakeFiles/lab_04.dir
 
 build CMakeFiles/lab_04.dir/main.cpp.obj: CXX_COMPILER__lab_04_unscanned_Debug C$:/Users/SavvinPC/Documents/coding/כאבû$ -$ ָּװָ/lab_04/main.cpp || cmake_object_order_depends_target_lab_04
   DEP_FILE = CMakeFiles\lab_04.dir\main.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab_04.dir
   OBJECT_FILE_DIR = CMakeFiles\lab_04.dir
 
 build CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj: CXX_COMPILER__lab_04_unscanned_Debug C$:/Users/SavvinPC/Documents/coding/כאבû$ -$ ָּװָ/lab_04/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp || cmake_object_order_depends_target_lab_04
   DEP_FILE = CMakeFiles\lab_04.dir\different_trees\binary_search_tree\binarySearchTreeUnitTests.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab_04.dir
   OBJECT_FILE_DIR = CMakeFiles\lab_04.dir\different_trees\binary_search_tree
 
