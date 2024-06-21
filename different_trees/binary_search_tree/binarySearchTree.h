@@ -1,9 +1,7 @@
 #pragma once
-#include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <valarray>
-
 
 template<typename T>
 concept Numeric = std::is_integral_v<T> or std::is_floating_point_v<T>;
@@ -30,6 +28,19 @@ public:
         this -> right = right;
     }
 
+    ~TreeNode() {
+        destroy(left);
+        destroy(right);
+    };
+
+    void destroy(TreeNode<Key, Value> *node) {
+        if (node) {
+            destroy(node -> getLeftNode());
+            destroy(node -> getRightNode());
+            delete node;
+        }
+    }
+
     Value &getValue();
     Key &getKey();
     TreeNode<Key, Value> *setLeftNode(TreeNode<Key, Value> *node);
@@ -37,10 +48,7 @@ public:
     TreeNode<Key, Value> *getLeftNode() const;
     TreeNode<Key, Value> *getRightNode() const;
     void deleteTreeNode(TreeNode<Key, Value> *object);
-
-    bool findKey(const TreeNode<Key, Value> *currentNode,const Key &searchingKey) const {
-        return currentNode -> getKey() == searchingKey;
-    }
+    bool findKey(const TreeNode<Key, Value> *currentNode, const Key &searchingKey) const;
 };
 
 template<Numeric Key, typename Value>
@@ -80,69 +88,80 @@ void TreeNode<Key, Value>::deleteTreeNode(TreeNode<Key, Value> *object) {
     delete object;
 }
 
+template<Numeric Key, typename Value>
+bool TreeNode<Key, Value>::findKey(const TreeNode<Key, Value> *currentNode, const Key &searchingKey) const {
+    return currentNode -> getKey() == searchingKey;
+}
+
 // ==================================================================================================== //
 
 template<Numeric Key, typename Value>
 class BinarySearchTree {
 private:
     TreeNode<Key, Value> *root;
+
+
+
     TreeNode<Key, Value> *getRoot() const {
         return this -> root;
     };
 
-    void destroy(TreeNode<Key, Value> *node) {
-        if (node) {
-            destroy(node -> getLeftNode());
-            destroy(node -> getRightNode());
-            delete node;
-        }
+
+    void addToSum(Value &item, int &sum) {
+        sum += item;
     }
 
-    void inOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void inOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            inOrderHelper(node -> getLeftNode(), visit);
-            visit(node -> getValue());
-            inOrderHelper(node -> getRightNode(), visit);
+            inOrderHelper(node -> getLeftNode(), visit, contextArgs ...);
+            visit(node -> getValue(), contextArgs ...);
+            inOrderHelper(node -> getRightNode(), visit, contextArgs ...);
         }
     } // как бы с помощью обхода посчитать сумму
 
-    void postOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void postOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            postOrderHelper(node -> getLeftNode(), visit);
-            postOrderHelper(node -> getRightNode(), visit);
-            visit(node -> getValue());
+            postOrderHelper(node -> getLeftNode(), visit, contextArgs ...);
+            postOrderHelper(node -> getRightNode(), visit, contextArgs ...);
+            visit(node -> getValue(), contextArgs ...);
         }
     }
 
-    void preOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void preOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            visit(node -> getValue());
-            preOrderHelper(node -> getLeftNode(), visit);
-            preOrderHelper(node -> getRightNode(), visit);
+            visit(node -> getValue(), contextArgs ...);
+            preOrderHelper(node -> getLeftNode(), visit, contextArgs ...);
+            preOrderHelper(node -> getRightNode(), visit, contextArgs ...);
         }
     }
 
-    void inOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void inOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            preOrderHelper(node -> getRightNode(), visit);
-            visit(node -> getValue());
-            preOrderHelper(node -> getLeftNode(), visit);
+            preOrderHelper(node -> getRightNode(), visit, contextArgs ...);
+            visit(node -> getValue(), contextArgs ...);
+            preOrderHelper(node -> getLeftNode(), visit, contextArgs ...);
         }
     }
 
-    void postOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void postOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            postOrderHelper(node -> getRightNode(), visit);
-            postOrderHelper(node -> getLeftNode, visit);
-            visit(node -> getValue());
+            postOrderHelper(node -> getRightNode(), visit, contextArgs ...);
+            postOrderHelper(node -> getLeftNode, visit, contextArgs ...);
+            visit(node -> getValue(), contextArgs ...);
         }
     }
 
-    void preOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item)) {
+    template<typename ... Types>
+    void preOrderRightHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
-            visit(node -> getValue());
-            preOrderHelper(node -> getRightNode(), visit);
-            preOrderHelper(node -> getLeftNode(), visit);
+            visit(node -> getValue(), contextArgs ...);
+            preOrderHelper(node -> getRightNode(), visit, contextArgs ...);
+            preOrderHelper(node -> getLeftNode(), visit, contextArgs ...);
         }
     }
 
@@ -168,6 +187,14 @@ private:
         newTree -> root -> setRightNode(mapHelper(startRoot -> getRightNode(), func) -> getRoot());
 
         return newTree;
+    }
+
+    void reduceHelper(TreeNode<Key, Value>* startRoot, Value(*func)(Value operand1, Value operand2), Value &base) {
+        if (startRoot) {
+            reduceHelper(startRoot -> getLeftNode(), func, base);
+            reduceHelper(startRoot -> getRightNode(), func, base);
+            base = func(startRoot -> getValue(), base);
+        }
     }
 
     BinarySearchTree<Key, Value> *whereHelper(TreeNode<Key, Value> *node, bool (*func)(Value &item)) const {
@@ -229,7 +256,6 @@ private:
             printLevel(node -> getRightNode(), level - 1, indentSpace / 2);
         }
     }
-
 public:
     explicit BinarySearchTree(TreeNode<Key, Value> *root): root(root) {}
 
@@ -237,22 +263,26 @@ public:
         this -> root = nullptr;
     };
 
-    ~BinarySearchTree() {
-        destroy(this -> getRoot());
-    }
+    ~BinarySearchTree() = default;
 
     TreeNode<Key, Value> *getPair(const Key &key) const;
     BinarySearchTree<Key, Value> *insert(const Key &key, const Value &value);
     BinarySearchTree<Key, Value> *map(Value (*func)(Value &item));
     BinarySearchTree<Key, Value> *where(bool (*func)(Value &item)) const;
-//    BinarySearchTree<Key, Value> *merge(const BinarySearchTree<Key, Value> *other) const;
     bool find(const Key &key) const;
-    void inOrder(void (*visit)(Value &item));
-    void preOrder(void (*visit)(Value &item));
-    void postOrder(void (*visit)(Value &item));
-    void inOrderRight(void (*visit)(Value &item));
-    void preOrderRight(void (*visit)(Value &item));
-    void postOrderRight(void (*visit)(Value &item));
+    template<typename ... Types>
+    void inOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
+    void preOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
+    void postOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
+    void inOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
+    void preOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
+    void postOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
+    template<typename ... Types>
     void printTree() const;
 
 };
@@ -290,43 +320,49 @@ BinarySearchTree<Key, Value> *BinarySearchTree<Key, Value>::where(bool (*func)(V
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::inOrder(void (*visit)(Value &)) {
-    this -> inOrderHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::inOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> inOrderHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::preOrder(void (*visit)(Value &item)) {
-    this -> preOrderHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::preOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> preOrderHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::postOrder(void (*visit)(Value &item)) {
-    this -> postOrderHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::postOrder(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> postOrderHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::inOrderRight(void (*visit)(Value &item)) {
-    this -> inOrderRightHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::inOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> inOrderRightHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::preOrderRight(void (*visit)(Value &item)) {
-    this -> preOrderRightHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::preOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> preOrderRightHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
-void BinarySearchTree<Key, Value>::postOrderRight(void (*visit)(Value &item)) {
-    this -> postOrderRightHelper(this -> getRoot(), visit);
+template<typename ... Types>
+void BinarySearchTree<Key, Value>::postOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
+    this -> postOrderRightHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
 template<Numeric Key, typename Value>
+template<typename ... Types>
 void BinarySearchTree<Key, Value>::printTree() const {
     int height = getHeight(this -> getRoot());
     int indentSpace = (int)std::pow(2, height + 1);
 
-    for (int i = 1; i <= height; ++i) {
+    for (int i = 1; i <= height; i++) {
         printLevel(this -> getRoot(), i, indentSpace);
         std::cout << std::endl;
     }
 }
-

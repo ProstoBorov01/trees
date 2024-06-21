@@ -8,5 +8,6 @@ add_executable(lab_04
         different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp
         different_trees/binary_search_tree/binarySearchTreeUnitTests.h
         TUI/menu.h
-        TUI/trash.h
+        TUI/main.cpp
+        TUI/main.cpp
 )

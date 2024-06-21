@@ -1,4 +1,6 @@
-#include "binarySearchTreeUnitTests.h"
+#include <iostream>
+#include "binarySearchTree.h"
+#include <cassert>
 
 int squareItem(int &item) {
     return item * item;
@@ -8,8 +10,12 @@ bool isEval(int &item) {
     return item % 2 == 0;
 }
 
-void visit(int &item) {
-    std::cout << item << " ";
+void visitFuncSum(int &item, int &counter) {
+    counter += item;
+}
+
+void visitFuncPrint(int &item) {
+    std::cout << " " << item << " ";
 }
 
 void testInsertAndFind() {
@@ -71,31 +77,49 @@ void testWhere() {
 
 void testTraversals() {
     BinarySearchTree<int, int> bst;
+    int counter1 = 0;
+    int counter2 = 0;
+    int counter3 = 0;
     bst.insert(10, 100);
     bst.insert(5, 50);
     bst.insert(15, 150);
     bst.insert(2, 20);
     bst.insert(7, 70);
+    std::cout << "\n";
+    std::cout << "Tree: " << std::endl;
     bst.printTree();
-
+    std::cout << "\n";
     std::string rightPathInOrder = " 20 50 70 100 150";
     std::string rightPathPreOrder = " 100 50 20 70 150";
     std::string rightPathPostOrder = " 20 70 50 150 100";
-    std::cout << "[Right Path:" << rightPathInOrder << std::endl;
+    std::cout << "[Right Path In order:" << rightPathInOrder << std::endl;
+    std::cout << "[Right Path Post order:" << rightPathPostOrder << std::endl;
+    std::cout << "[Right Path Pre order:" << rightPathPreOrder << std::endl;
+    std::cout << "[Right Sum:" << " 390" << std::endl;
     std::cout << "In-order Traversal: ";
-    bst.inOrder(visit);
+    bst.inOrder(visitFuncPrint);
     std::cout << "\n";
-    std::cout << "[Right Path:" << rightPathPreOrder << std::endl;
+    std::cout << "Sum: ";
+    bst.inOrder(visitFuncSum, counter1);
+    std::cout << counter1;
+    std::cout << "\n";
     std::cout << "Pre-order Traversal: ";
-    bst.preOrder(visit);
+    bst.postOrder(visitFuncPrint);
     std::cout << "\n";
-    std::cout << "[Right Path:" << rightPathPostOrder << std::endl;
+    std::cout << "Sum: ";
+    bst.postOrder(visitFuncSum, counter2);
+    std::cout << counter2;
+    std::cout << "\n";
     std::cout << "Post-order Traversal: ";
-    bst.postOrder(visit);
+    bst.preOrder(visitFuncPrint);
+    std::cout << "\n";
+    std::cout << "Sum: ";
+    bst.preOrder(visitFuncSum, counter3);
+    std::cout << counter3;
     std::cout << "\n";
 }
 
-int startBinarySearchTreeUnitTests() {
+void startBinarySearchTreeUnitTests() {
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
     testInsertAndFind();
     testGetPair();
@@ -105,9 +129,4 @@ int startBinarySearchTreeUnitTests() {
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
     std::cout << "All tests passed." << std::endl;
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-    return 0;
-}
-
-int main() {
-    startBinarySearchTreeUnitTests();
 }

@@ -55,6 +55,12 @@ build CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeU
   OBJECT_DIR = CMakeFiles\lab_04.dir
   OBJECT_FILE_DIR = CMakeFiles\lab_04.dir\different_trees\binary_search_tree
 
+build CMakeFiles/lab_04.dir/TUI/main.cpp.obj: CXX_COMPILER__lab_04_unscanned_Debug C$:/Users/SavvinPC/Documents/coding/כאבû$ -$ ָּװָ/lab_04/TUI/main.cpp || cmake_object_order_depends_target_lab_04
+  DEP_FILE = CMakeFiles\lab_04.dir\TUI\main.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\lab_04.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab_04.dir\TUI
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target lab_04
@@ -63,7 +69,7 @@ build CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeU
 #############################################
 # Link the executable lab_04.exe
 
-build lab_04.exe: CXX_EXECUTABLE_LINKER__lab_04_Debug CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj
+build lab_04.exe: CXX_EXECUTABLE_LINKER__lab_04_Debug CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj CMakeFiles/lab_04.dir/TUI/main.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\lab_04.dir
