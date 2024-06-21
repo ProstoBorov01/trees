@@ -178,14 +178,6 @@ private:
         return newTree;
     }
 
-    void reduceHelper(TreeNode<Key, Value>* startRoot, Value(*func)(Value operand1, Value operand2), Value &base) {
-        if (startRoot) {
-            reduceHelper(startRoot -> getLeftNode(), func, base);
-            reduceHelper(startRoot -> getRightNode(), func, base);
-            base = func(startRoot -> getValue(), base);
-        }
-    }
-
     BinarySearchTree<Key, Value> *whereHelper(TreeNode<Key, Value> *node, bool (*func)(Value &item)) const {
         if (node == nullptr) {
             return new BinarySearchTree<Key, Value>();
