@@ -100,13 +100,6 @@ class BinarySearchTree {
 private:
     TreeNode<Key, Value> *root;
 
-
-
-    TreeNode<Key, Value> *getRoot() const {
-        return this -> root;
-    };
-
-
     template<typename ... Types>
     void inOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
@@ -252,6 +245,11 @@ private:
             printLevel(node -> getRightNode(), level - 1, indentSpace / 2);
         }
     }
+
+    TreeNode<Key, Value> *getRoot() const {
+        return this -> root;
+    };
+
 public:
     explicit BinarySearchTree(TreeNode<Key, Value> *root): root(root) {}
 

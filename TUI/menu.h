@@ -43,41 +43,44 @@ public:
         std::cout << "3 - Char" << std::endl;
         std::cout << "--------------------- \n" << std::endl;
 
-        int keys[] = {1, 2, 3, 4, 5, 6};
-        int intDataset[] = {1, 2, 3, 4, 5, 6};
-        double doubleDataset[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
-        char charDataset[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+//        int keys[] = {1, 2, 3, 4, 5, 6};
+//        int intDataset[] = {1, 2, 3, 4, 5, 6};
+//        double doubleDataset[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+//        char charDataset[] = {'a', 'b', 'c', 'd', 'e', 'f'};
 
         switch(listenUser(4)) {
             case 0:
                 exit(1);
             case 1: {
                 BinarySearchTree<int, int> intTree;
-
-                for (int i = 0; i < 6; ++i) {
-                    intTree.insert(keys[i], intDataset[i]);
-                }
-
+                intTree.insert(3, 3);
+                intTree.insert(2, 2);
+                intTree.insert(1, 1);
+                intTree.insert(4, 4);
+                intTree.insert(5, 5);
+                intTree.insert(6, 6);
                 this -> workingWithTreeScreen(&intTree, "int");
                 break;
             }
             case 2: {
                 BinarySearchTree<int, double> doubleTree;
-
-                for (int i = 0; i < 6; ++i) {
-                    doubleTree.insert(keys[i], doubleDataset[i]);
-                }
-
+                doubleTree.insert(3, 3.0);
+                doubleTree.insert(2, 2.0);
+                doubleTree.insert(1, 1.0);
+                doubleTree.insert(4, 4.0);
+                doubleTree.insert(5, 5.0);
+                doubleTree.insert(6, 6.0);
                 this -> workingWithTreeScreen(&doubleTree, "double");
                 break;
             }
             case 3: {
                 BinarySearchTree<int, char> charTree;
-
-                for (int i = 0; i < 6; ++i) {
-                    charTree.insert(keys[i], charDataset[i]);
-                }
-
+                charTree.insert(3, 'a');
+                charTree.insert(2, 'a');
+                charTree.insert(1, 'a');
+                charTree.insert(4, 'a');
+                charTree.insert(5, 'a');
+                charTree.insert(6, 'a');
                 this -> workingWithTreeScreen(&charTree, "char");
                 break;
             }

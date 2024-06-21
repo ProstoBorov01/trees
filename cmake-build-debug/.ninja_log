@@ -1,0 +1,16 @@
+# ninja log v5
+9	507	7405895713157724	CMakeFiles/lab_04.dir/main.cpp.obj	1e6b5c70ea09a210
+4	1089	7406697810475430	CMakeFiles/lab_04.dir/TUI/main.cpp.obj	b60d09d0c6f100f8
+1130	1339	7406697812869097	lab_04.exe	201af84449974b0
+28	1130	7406697810950339	CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj	f5da7f52b9870653
+3	666	7406700395626302	build.ninja	ac99392bc554b383
+19	2085	7406063508403976	CMakeFiles/lab_04.dir/TUI/menu.cpp.obj	bb837b2756dabfab
+13	1393	7406700422735641	CMakeFiles/lab_04.dir/TUI/main.cpp.obj	b60d09d0c6f100f8
+3	1440	7406700423485246	CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj	f5da7f52b9870653
+1441	1669	7406700425648585	lab_04.exe	201af84449974b0
+7	2585	7406746209338135	CMakeFiles/lab_04.dir/TUI/main.cpp.obj	b60d09d0c6f100f8
+52	2671	7406746210213114	CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj	f5da7f52b9870653
+2671	3049	7406746213766939	lab_04.exe	201af84449974b0
+53	2810	7406746406616468	CMakeFiles/lab_04.dir/different_trees/binary_search_tree/binarySearchTreeUnitTests.cpp.obj	f5da7f52b9870653
+8	2915	7406746407677880	CMakeFiles/lab_04.dir/TUI/main.cpp.obj	b60d09d0c6f100f8
+2916	3269	7406746411044266	lab_04.exe	201af84449974b0
