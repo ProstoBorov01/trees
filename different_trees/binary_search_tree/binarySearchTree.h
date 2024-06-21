@@ -107,10 +107,6 @@ private:
     };
 
 
-    void addToSum(Value &item, int &sum) {
-        sum += item;
-    }
-
     template<typename ... Types>
     void inOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
