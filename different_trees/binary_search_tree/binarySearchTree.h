@@ -341,7 +341,6 @@ void BinarySearchTree<Key, Value>::postOrderRight(void (*visit)(Value &item, Typ
 }
 
 template<Numeric Key, typename Value>
-template<typename ... Types>
 void BinarySearchTree<Key, Value>::printTree() const {
     int height = getHeight(this -> getRoot());
     int indentSpace = (int)std::pow(2, height + 1);
