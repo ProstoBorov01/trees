@@ -268,7 +268,6 @@ public:
     void preOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
     template<typename ... Types>
     void postOrderRight(void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs);
-    template<typename ... Types>
     void printTree() const;
 
 };
