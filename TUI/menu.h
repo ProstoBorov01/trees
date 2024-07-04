@@ -108,82 +108,82 @@ public:
                     << "~ An object was filled by test values from this array -> ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']"
                     << std::endl;
         }
-            std::cout << "~ At that moment you can test methods of this object." << std::endl;
-            std::cout << "~ Follow the prompts on the screen! \n" << std::endl;
-            std::cout << "~ Enter the number(0 - to exit from the program):" << std::endl;
-            std::cout << "---------------------" << std::endl;
-            std::cout << "1 - Help" << std::endl;
-            std::cout << "2 - Insert element in BinarySearchTree" << std::endl;
-            std::cout << "3 - Map element in BinarySearchTree" << std::endl;
-            std::cout << "4 - StartUnitTests" << std::endl;
-            std::cout << "5 - Is element in BinarySearchTree" << std::endl;
-            std::cout << "6 - Get Pair by key from BinarySearchTree" << std::endl;
-            std::cout << "7 - Print BinarySearchTree" << std::endl;
-            std::cout << "8 - Different Tree Traversals" << std::endl;
-            std::cout << "--------------------- \n" << std::endl;
+        std::cout << "~ At that moment you can test methods of this object." << std::endl;
+        std::cout << "~ Follow the prompts on the screen! \n" << std::endl;
+        std::cout << "~ Enter the number(0 - to exit from the program):" << std::endl;
+        std::cout << "---------------------" << std::endl;
+        std::cout << "1 - Help" << std::endl;
+        std::cout << "2 - Insert element in BinarySearchTree" << std::endl;
+        std::cout << "3 - Map element in BinarySearchTree" << std::endl;
+        std::cout << "4 - StartUnitTests" << std::endl;
+        std::cout << "5 - Is element in BinarySearchTree" << std::endl;
+        std::cout << "6 - Get Pair by key from BinarySearchTree" << std::endl;
+        std::cout << "7 - Print BinarySearchTree" << std::endl;
+        std::cout << "8 - Different Tree Traversals" << std::endl;
+        std::cout << "--------------------- \n" << std::endl;
 
-            Key key;
-            Value item;
+        Key key;
+        Value item;
 
-            switch (listenUser(8)) {
-                case 0:
-                    exit(1);
-                    break;
-                case 1:
-                    std::cout << "------- Result ------->" << std::endl;
-                    this -> workingWithTreeScreen(tree, typeOfContent);
+        switch (listenUser(8)) {
+            case 0:
+                exit(1);
+                break;
+            case 1:
+                std::cout << "------- Result ------->" << std::endl;
+                this -> workingWithTreeScreen(tree, typeOfContent);
 
-                    break;
-                case 2:
-                    std::cout << "-------result------->" << std::endl;
-                    std::cout << "Current sequence: ";
-                    tree -> printTree();
-                    std::cout << "Input key: ";
-                    std::cin >> key;
-                    std::cout << "Input value: ";
-                    std::cin >> item;
-                    std::cout << "Updated tree: ";
-                    tree -> insert(key, item);
-                    tree -> printTree();
-                    std::cout << "<-------------------- \n" << std::endl;
-                    break;
-                case 3:
-                    sayHello();
-                    break;
-                case 4:
-                    startBinarySearchTreeUnitTests();
-                    break;
-                case 5:
-                    sayHello();
-                    break;
-                case 6:
-                    sayHello();
-                    break;
-                case 7:
-                    std::cout << "-------result------->" << std::endl;
-                    std::cout << "Current sequence: ";
-                    tree -> printTree();
-                    std::cout << "Input key: ";
-                    std::cin >> key;
-                    std::cout << "Input value: ";
-                    std::cin >> item;
-                    std::cout << "Updated tree: ";
-                    tree -> printTree();
-                    std::cout << "<-------------------- \n" << std::endl;
-                    break;
+                break;
+            case 2:
+                std::cout << "-------result------->" << std::endl;
+                std::cout << "Current sequence: ";
+                tree -> printTree();
+                std::cout << "Input key: ";
+                std::cin >> key;
+                std::cout << "Input value: ";
+                std::cin >> item;
+                std::cout << "Updated tree: ";
+                tree -> insert(key, item);
+                tree -> printTree();
+                std::cout << "<-------------------- \n" << std::endl;
+                break;
+            case 3:
+                sayHello();
+                break;
+            case 4:
+                startBinarySearchTreeUnitTests();
+                break;
+            case 5:
+                sayHello();
+                break;
+            case 6:
+                sayHello();
+                break;
+            case 7:
+                std::cout << "-------result------->" << std::endl;
+                std::cout << "Current sequence: ";
+                tree -> printTree();
+                std::cout << "Input key: ";
+                std::cin >> key;
+                std::cout << "Input value: ";
+                std::cin >> item;
+                std::cout << "Updated tree: ";
+                tree -> printTree();
+                std::cout << "<-------------------- \n" << std::endl;
+                break;
 
-                case 8:
-                    sayHello();
-                    break;
-            }
+            case 8:
+                sayHello();
+                break;
+        }
 
-            std::cout << "~ Input 0 - to continue" << std::endl;
+        std::cout << "~ Input 0 - to continue" << std::endl;
 
-            switch (listenUser(0)) {
-                case 0:
-                    workingWithTreeScreen(tree, typeOfContent);
-                    break;
-            }
+        switch (listenUser(0)) {
+            case 0:
+                workingWithTreeScreen(tree, typeOfContent);
+                break;
+        }
 
     }
 };

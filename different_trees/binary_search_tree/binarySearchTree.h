@@ -20,7 +20,7 @@ private:
     Value value{};
 public:
 
-    explicit TreeNode(const Key &key, const Value &value,
+    TreeNode(const Key &key, const Value &value,
                       TreeNode<Key, Value> *left = nullptr, TreeNode<Key, Value> *right = nullptr) {
         this -> key = key;
         this -> value = value;
@@ -63,14 +63,14 @@ Key &TreeNode<Key, Value>::getKey() {
 
 template<Numeric Key, typename Value>
 TreeNode<Key, Value> *TreeNode<Key, Value>::setLeftNode(TreeNode<Key, Value> *node) {
-    left = node;
+    this -> left = node;
     return this ;
 }
 
 template<Numeric Key, typename Value>
 TreeNode<Key, Value> *TreeNode<Key, Value>::setRightNode(TreeNode<Key, Value> *node) {
-    right = node;
-    return nullptr;
+    this -> right = node;
+    return this;
 }
 
 template<Numeric Key, typename Value>
@@ -100,6 +100,7 @@ class BinarySearchTree {
 private:
     TreeNode<Key, Value> *root;
 
+    // копирующий конструткор + по возможности move семантику
     template<typename ... Types>
     void inOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
@@ -107,7 +108,7 @@ private:
             visit(node -> getValue(), contextArgs ...);
             inOrderHelper(node -> getRightNode(), visit, contextArgs ...);
         }
-    } // как бы с помощью обхода посчитать сумму
+    }
 
     template<typename ... Types>
     void postOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
@@ -117,7 +118,7 @@ private:
             visit(node -> getValue(), contextArgs ...);
         }
     }
-
+// следует ещё передавать и ключ
     template<typename ... Types>
     void preOrderHelper(TreeNode<Key, Value> *node, void (*visit)(Value &item, Types& ... contextArgs), Types& ... contextArgs) {
         if (node) {
@@ -154,6 +155,7 @@ private:
         }
     }
 
+    // возвращать ключ значение без узла
     TreeNode<Key, Value> *getPairHelper(TreeNode<Key, Value> *node, const Key &key) const {
         if (node == nullptr or node -> getKey() == key) {
             return node;
@@ -340,6 +342,7 @@ void BinarySearchTree<Key, Value>::postOrderRight(void (*visit)(Value &item, Typ
     this -> postOrderRightHelper(this -> getRoot(), visit, contextArgs ...);
 }
 
+// сделать печать через обход
 template<Numeric Key, typename Value>
 void BinarySearchTree<Key, Value>::printTree() const {
     int height = getHeight(this -> getRoot());
